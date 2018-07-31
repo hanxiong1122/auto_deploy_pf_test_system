@@ -67,10 +67,10 @@ class create_ec2_instances(object):
 
 if __name__=="__main__":
 	ImageId = 'ami-d87877a7'
-	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1)
+	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
 	print(instances.get_instance_public_ip())
 	print(instances.get_instance_id())
-	time.sleep(10)
-	print("now we close all running instance")
-	instances.terminate()
+	# time.sleep(10)
+	# print("now we close all running instance")
+	# instances.terminate()
 
