@@ -6,7 +6,7 @@ import os
 # def create_instance()
 
 class create_ec2_instances(object):
-	def __init__(self, ImageId = 'ami-d87877a7', MaxCount = 1, MinCount = 1, InstanceType = 't2.micro', time_out = 30):
+	def __init__(self, ImageId = 'ami-828492fd', MaxCount = 1, MinCount = 1, InstanceType = 't2.micro', time_out = 30):
 		self.ec2 = boto3.resource('ec2')
 		self.ImageId = ImageId
 		self.MaxCount = MaxCount
@@ -83,8 +83,8 @@ class create_ec2_instances(object):
 		return self.id_list
 
 if __name__=="__main__":
-	ImageId = 'ami-d87877a7'
-	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1)#, InstanceType = 'm4.xlarge')
+	ImageId = 'ami-828492fd'
+	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
 	print(instances.get_instance_public_ip())
 	print(instances.get_instance_id())
 	# time.sleep(10)

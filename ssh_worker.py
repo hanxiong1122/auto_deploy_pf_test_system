@@ -2,28 +2,38 @@ import boto3
 import botocore
 import paramiko
 
+from utils.utils import load_cmdconfig, load_instances_ip
+
 # key = paramiko.RSAKey.from_private_key_file("yintech.pem")
 # client = paramiko.SSHClient()
 # client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-# instances_ip = ["54.161.211.36","52.90.137.110"]
+# instances_ip = ["54.147.245.101","52.91.227.23"]
 
-# for instance_ip in instances_ip:
+
+# cmd = "cd /home/ubuntu/yintech/ddpg_model/model/src;chmod a+x aws_test_run.py; ./aws_test_run.py 1>&2 &"
+# for i,instance_ip in enumerate(instances_ip):
 # 	# Connect/ssh to an instance
 # 	try:
 # 	    # Here 'ubuntu' is user name and 'instance_ip' is public IP of EC2
 # 	    client.connect(hostname=instance_ip, username="ubuntu", pkey=key)
 
 # 	    # Execute a command(cmd) after connecting/ssh to an instance
-# 	    stdin, stdout, stderr = client.exec_command("touch ~/helloWorld.txt")
-# 	    print(stdout.read())
+# 	    print("Execute command on ", i, "th machine")
+# 	    stdin, stdout, stderr = client.exec_command(cmd)
+
+
 # 	    # close the client connection once the job is done
 # 	    client.close()
 
 # 	except Exception as e:
 # 	    print(e)
 
-cmd_list = ["touch ~/helloWorld.txt","touch ~/helloWorld1.txt"]
+# cmd_list = ["touch ~/helloWorld.txt","touch ~/helloWorld1.txt"]
+
+
+
+
 class ssh_worker(object):
 	def __init__(self, key_path, instance_ip, cmd_list, username = "ubuntu"):
 		self.key = paramiko.RSAKey.from_private_key_file(key_path)
@@ -46,14 +56,20 @@ class ssh_worker(object):
 	def close_connection(self):
 		self.client.close()
 
+
+
+
 if __name__=="__main__":
-	instances_ip = ["54.161.211.36","52.90.137.110"]
-	print(cmd_list)
-	for instance_ip in instances_ip:
+	# instances_ip = ["54.147.245.101","52.91.227.23"]
+	instances_ip = load_instances_ip()
+	cmd_list = load_cmdconfig()
+	print(cmd_list[0])
+	for i, instance_ip in enumerate(instances_ip):
 		worker = ssh_worker(key_path = "yintech.pem", 
 							instance_ip = instance_ip, 
 							cmd_list = cmd_list)
 		worker.establish_connect()
+		print("run the ", i, "th cmd")
 		worker.run_cmd()
 		worker.close_connection()
 
