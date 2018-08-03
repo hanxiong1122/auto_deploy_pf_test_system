@@ -7,14 +7,14 @@ import os
 
 class create_ec2_instances(object):
 	def __init__(self, 
+				aws_access_key_id, 
+				aws_secret_access_key, 
+				region_name,
 				ImageId = 'ami-c7eaf7b8', 
 				MaxCount = 1, 
 				MinCount = 1, 
 				InstanceType = 't2.micro', 
-				time_out = 30,
-				aws_access_key_id = "AKIAJDIKQ2EJWKZJ6EOA", 
-				aws_secret_access_key = "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", 
-				region_name = "us-east-1"):
+				time_out = 30,):
 		try: 
 			self.session  = boto3.Session(aws_access_key_id = aws_access_key_id,
 										  aws_secret_access_key = aws_secret_access_key,

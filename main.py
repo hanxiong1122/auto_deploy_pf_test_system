@@ -2,12 +2,20 @@
 import time
 from create_ec2_instance import create_ec2_instances
 from ssh_worker import ssh_worker
-from utils.utils import load_cmdconfig, load_instances_ip
+from utils.utils import load_cmdconfig, load_instances_ip, load_aws_config
 
 
 ### create n instances
 ImageId = 'ami-c7eaf7b8'
-instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
+aws_config = load_aws_config()
+instances = create_ec2_instances(aws_access_key_id = aws_config["aws_access_key_id"],
+								aws_secret_access_key = aws_config["aws_secret_access_key"],
+								region_name = aws_config["region_name"],
+								ImageId = ImageId, 
+								MaxCount = 2, 
+								MinCount = 1, 
+								InstanceType = 'm4.xlarge')
+
 print(instances.get_instance_public_ip())
 print(instances.get_instance_id())
 

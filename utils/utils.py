@@ -24,6 +24,17 @@ def load_cmdconfig():
 		print("no cmd config file")
 		raise
 
+def load_aws_config(config_path="./config/aws_config.json"):
+    try:
+        with open(config_path) as f:
+            config = json.load(f)
+            logging.info("successfully load config file at " + config_path)
+        return config
+    except:
+        print("error aws config file or path")
+        raise
+
+
 def load_instances_ip():
 	try:
 		with open("./tmp/instances_info.json") as f:
