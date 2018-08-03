@@ -6,9 +6,9 @@ import shutil
 
 class s3_service(object):
 	def __init__(self, 
-				aws_access_key_id = "AKIAJDIKQ2EJWKZJ6EOA", 
-				aws_secret_access_key = "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", 
-				region_name = "us-east-1"):
+				aws_access_key_id, 
+				aws_secret_access_key, 
+				region_name):
 		try: 
 			self.session  = boto3.Session(aws_access_key_id = aws_access_key_id,
 										  aws_secret_access_key = aws_secret_access_key,
