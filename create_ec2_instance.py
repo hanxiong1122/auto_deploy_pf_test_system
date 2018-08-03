@@ -6,7 +6,23 @@ import os
 # def create_instance()
 
 class create_ec2_instances(object):
-	def __init__(self, ImageId = 'ami-fac2d285', MaxCount = 1, MinCount = 1, InstanceType = 't2.micro', time_out = 30):
+	def __init__(self, 
+				ImageId = 'ami-dafeeea5', 
+				MaxCount = 1, 
+				MinCount = 1, 
+				InstanceType = 't2.micro', 
+				time_out = 30,
+				aws_access_key_id = "AKIAJDIKQ2EJWKZJ6EOA", 
+				aws_secret_access_key = "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", 
+				region_name = "us-east-1"):
+		try: 
+			self.session  = boto3.Session(aws_access_key_id = aws_access_key_id,
+										  aws_secret_access_key = aws_secret_access_key,
+										  region_name = region_name)
+			self.ec2 = self.session.resource('ec2')
+		except Exception as error:
+			print("can not connect to aws ec2")
+			raise
 		self.ec2 = boto3.resource('ec2')
 		self.ImageId = ImageId
 		self.MaxCount = MaxCount
@@ -83,7 +99,7 @@ class create_ec2_instances(object):
 		return self.id_list
 
 if __name__=="__main__":
-	ImageId = 'ami-fac2d285'
+	ImageId = 'ami-dafeeea5'
 	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
 	print(instances.get_instance_public_ip())
 	print(instances.get_instance_id())
