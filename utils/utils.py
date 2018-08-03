@@ -28,7 +28,7 @@ def load_aws_config(config_path="./config/aws_config.json"):
     try:
         with open(config_path) as f:
             config = json.load(f)
-            logging.info("successfully load config file at " + config_path)
+            print("successfully load config file at " + config_path)
         return config
     except:
         print("error aws config file or path")
