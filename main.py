@@ -6,10 +6,51 @@ from utils.utils import load_cmdconfig, load_instances_ip
 
 
 ### create n instances
-ImageId = 'ami-dafeeea5'
-instances = create_ec2_instances(ImageId = ImageId, MaxCount = 1, MinCount = 1, InstanceType = 'm4.xlarge')
+ImageId = 'ami-c7eaf7b8'
+instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
 print(instances.get_instance_public_ip())
 print(instances.get_instance_id())
+
+
+### start tasks ###
+instances_ip = load_instances_ip()
+cmd_list = load_cmdconfig()
+for i, ins_ip in enumerate(instances_ip):
+	worker = ssh_worker(key_path = "yintech.pem", 
+						instance_ip = ins_ip, 
+						cmd_list = cmd_list)
+	worker.establish_connect()
+	print("run the ", i, "th task")
+	worker.run_cmd()
+	worker.close_connection()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### download list file from s3
