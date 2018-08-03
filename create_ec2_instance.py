@@ -23,7 +23,7 @@ class create_ec2_instances(object):
 		except Exception as error:
 			print("can not connect to aws ec2")
 			raise
-		self.ec2 = boto3.resource('ec2')
+		# self.ec2 = boto3.resource('ec2')
 		self.ImageId = ImageId
 		self.MaxCount = MaxCount
 		self.MinCount = MinCount
