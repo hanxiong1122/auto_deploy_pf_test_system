@@ -7,18 +7,21 @@ import os
 
 class create_ec2_instances(object):
 	def __init__(self, 
-				aws_access_key_id, 
-				aws_secret_access_key, 
-				region_name,
+				aws_access_key_id = None,
+				aws_secret_access_key = None, 
+				region_name = None,
 				ImageId = 'ami-c7eaf7b8', 
 				MaxCount = 1, 
 				MinCount = 1, 
 				InstanceType = 't2.micro', 
 				time_out = 30,):
 		try: 
-			self.session  = boto3.Session(aws_access_key_id = aws_access_key_id,
-										  aws_secret_access_key = aws_secret_access_key,
-										  region_name = region_name)
+			if not aws_access_key_id and not aws_secret_access_key and not region_name:
+				self.session = boto3.Session(aws_access_key_id = aws_access_key_id,
+											  aws_secret_access_key = aws_secret_access_key,
+											  region_name = region_name)
+			else:
+				self.session = boto3.Session()
 			self.ec2 = self.session.resource('ec2')
 		except Exception as error:
 			print("can not connect to aws ec2")

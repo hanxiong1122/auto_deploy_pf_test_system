@@ -6,13 +6,16 @@ import shutil
 
 class s3_service(object):
 	def __init__(self, 
-				aws_access_key_id, 
-				aws_secret_access_key, 
-				region_name):
+				aws_access_key_id = None, 
+				aws_secret_access_key = None, 
+				region_name = None):
 		try: 
-			self.session  = boto3.Session(aws_access_key_id = aws_access_key_id,
-										  aws_secret_access_key = aws_secret_access_key,
-										  region_name = region_name)
+			if not aws_access_key_id and not aws_secret_access_key and not region_name:
+				self.session = boto3.Session(aws_access_key_id = aws_access_key_id,
+											  aws_secret_access_key = aws_secret_access_key,
+											  region_name = region_name)
+			else:
+				self.session = boto3.Session()
 			self.s3 = self.session.resource('s3')
 		except Exception as error:
 			print("can not connect to s3")
