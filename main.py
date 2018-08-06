@@ -6,15 +6,19 @@ from utils.utils import load_cmdconfig, load_instances_ip, load_aws_config
 
 
 ### create n instances
-ImageId = 'ami-c7eaf7b8'
-aws_config = load_aws_config()
-# print(aws_config["aws_access_key_id"])
-# print(aws_config["aws_secret_access_key"])
-# print(aws_config["region_name"])
-instances = create_ec2_instances(aws_access_key_id = aws_config["aws_access_key_id"],
-								aws_secret_access_key = aws_config["aws_secret_access_key"],
-								region_name = aws_config["region_name"],
-								ImageId = ImageId, 
+ImageId = 'ami-0f793c9a57200fbb6'
+# aws_config = load_aws_config()
+# instances = create_ec2_instances(aws_access_key_id = aws_config["aws_access_key_id"],
+# 								aws_secret_access_key = aws_config["aws_secret_access_key"],
+# 								region_name = aws_config["region_name"],
+# 								ImageId = ImageId, 
+# 								MaxCount = 2, 
+# 								MinCount = 1, 
+# 								InstanceType = 'm4.xlarge')
+
+
+
+instances = create_ec2_instances(ImageId = ImageId, 
 								MaxCount = 2, 
 								MinCount = 1, 
 								InstanceType = 'm4.xlarge')

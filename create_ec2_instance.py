@@ -102,7 +102,7 @@ class create_ec2_instances(object):
 		return self.id_list
 
 if __name__=="__main__":
-	ImageId = 'ami-c7eaf7b8'
+	ImageId = 'ami-0f793c9a57200fbb6'
 	instances = create_ec2_instances(ImageId = ImageId, MaxCount = 2, MinCount = 1, InstanceType = 'm4.xlarge')
 	print(instances.get_instance_public_ip())
 	print(instances.get_instance_id())
