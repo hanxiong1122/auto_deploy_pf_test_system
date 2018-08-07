@@ -57,8 +57,10 @@ class s3_service(object):
 			self.s3.Bucket(bucket_name).download_file(key, filename)
 			self.s3.Object(bucket_name, key).delete()
 			print("successfully download and delete file in s3")
+			return True
 		except Exception as error:
 			print(error)
+			return False
 
 
 class s3_service(object):
